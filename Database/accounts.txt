@@ -1,0 +1,18 @@
+This accounts were made to be used on both API and database to allow anyone to access.
+Since our database is divided in 3 roles, we provided one account for each one.
+
+Administrator:
+User: admin
+Password: z&p/GNiz
+
+Management:
+User: management_user
+Password: ()Mrp9DK
+
+Collector:
+User: collector_user
+Password: h7uXtKK)
+
+Iot:
+User: iot_user
+Password: aa_/REnz

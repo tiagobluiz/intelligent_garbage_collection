@@ -1,0 +1,389 @@
+\documentclass{report}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{array}     % for "\newcolumntype" macro
+\usepackage{ragged2e}  % for "\RaggedRight" macro
+\usepackage[margin=1in]{geometry}
+%\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EMPLOYEE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{EmployeeDetailedInfo}}
+\label{tab:desc_employee}
+\endlastfoot
+
+username & nvarchar(50) & Nome de utilizador associado ao empregado de forma a efetuar autenticação nas aplicações & Chave primária \\ \hline
+name & nvarchar(100) & Nome pelo qual o empregado será reconhecido nas aplicações & - \\  \hline
+email & nvarchar(100) & Email associado ao empregado & - \\  \hline
+$phone\_number$ & numeric(9) & Número de telemóvel associado ao empregado. Assume-se que o número é português, pelo que o código associado a Portugal (+351) foi omitido & Deve ter 9 dígitos numéricos\\  \hline
+job & nvarchar(13) & Cargo do trabalhador na empresa de recolha, que varia entre administrador do sistema, gestor da rede e responsável de recolha & O cargo varia entre três possíveis: administrator, management e collecter \\   \hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ROUTE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Route}}
+\label{tab:desc_route}
+\endlastfoot
+
+$route\_id$ & int identity(1,1) & Identificador numérico único de uma rota & Chave primária \\ \hline
+$start\_point$ & int & Identificador da estação onde a rota se inicia & Chave estrangeira que referencia a tabela \textit{Station} \\ \hline
+$finish\_point$ & int & Identificador da estação onde a rota se encerra & Chave estrangeira que referencia a tabela \textit{Station} \\ \hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUCK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Truck}}
+\label{tab:desc_truck}
+\endlastfoot
+
+$registration\_plate$ & nvarchar(8) & Matricula de um camião & Chave primária \\ \hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ROUTE COLLECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{RouteCollection}}
+\label{tab:desc_route_collection}
+\endlastfoot
+
+$route\_id$ & int & Identificador da rota onde se efetua uma recolha & Chave primária. Chave estrangeira que referencia a tabela \textit{Route} \\ \hline
+$start\_date$ & datetime & Data e hora na qual se iniciou a rota de recolha & Valor predefinido aquando de uma inserção é a data e hora desse instante \\ \hline
+$finish\_date$ & datetime & Data e hora na qual a rota de recolha terminou & O valor pode ser nulo \\ \hline
+$truck\_plate$ & nvarchar(8) & Matrícula do camião que efetuou a rota de recolha & Chave estrangeira que referencia a tabela \textit{Truck} \\ \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% STATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Station}}
+\label{tab:desc_station}
+\endlastfoot
+
+$station\_id$ & int identity(1,1) & Identificador numérico único da estação & Chave primária \\ \hline
+latitude & decimal(19,16) & Coordenada correspondente à latitude onde se localiza a estação & Chave Candidata em conjunto com o campo \textit{longitude}. $-90\leq \textit{latitude} \leq 90$ \\ \hline
+longitude & decimal(19,16) & Coordenada correspondente à longitude onde se localiza a estação & Chave Candidata em conjunto com o campo \textit{latitude}. $-180 \leq \textit{longitude} \leq 180$ \\ \hline
+$station\_type$ & nvarchar(12) & Identificador do tipo de estação - Aterrou ou Base & Valor pode variar entre \textit{$drop\_zone$} e \textit{base} \\ \hline
+\end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DROP ZONE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Procedimentos e funções associadas à tabela \textit{DropZone}}
+\label{tab:collect_drop_zone}
+\endlastfoot
+
+$drop\_zone\_id$ & int & Identificador da estação de aterro & Chave primária. Chave estrangeira que referencia a tabela \textit{Station}\\ \hline
+\end{longtable}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ROUTE DROP ZONE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Procedimentos e funções associadas à tabela \textit{RouteDropZone}}
+\label{tab:collect_route_drop_zone}
+\endlastfoot
+
+$route\_id$ & int & Identificador da rota & Chave primária. Chave estrangeira que referencia a tabela \textit{Route} \\ \hline
+$drop\_zone\_id$ & int & Identificador do aterro & Chave primária. Chave estrangeira que referencia a tabela \textit{DropZone} \\ \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLLECT ZONE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{CollectZone}}
+\label{tab:desc_collect_zone}
+\endlastfoot
+
+$collect\_zone\_id$ & int identity(1,1) & Identificador numérico único da zona de coleta & Chave primária \\ \hline
+$route\_id$ & int & Identificador da rota onde a zona de coleta está atualmente inserida & Chave estrangeira que referencia a tabela \textit{Route} \\ \hline
+$pick\_order$ & int & Posição na rota de recolha & $pick\_order \geq 1$ \\ \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLLECT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Collect}}
+\label{tab:desc_collect}
+\endlastfoot
+
+$collect\_zone\_id$ & int & Identificador numérico único  da zona de coleta & Chave primária. Chave estrangeira que referencia a tabela \textit{CollectZone} \\ \hline
+$collect\_date$ & datetime & Data e hora na qual se realizou a recolha da zona de coleta & Chave primária. Valor predefinido aquando de uma inserção é a data e hora desse instante \\  \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WASH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Wash}}
+\label{tab:desc_wash}
+\endlastfoot
+
+$collect\_zone\_id$ & int & Identificador numérico único da zona de coleta & Chave primária. Chave estrangeira que referencia a tabela \textit{CollectZone} \\ \hline
+$wash\_date$ & datetime & Data e hora na qual se realizou a lavagem da zona de coleta & Chave primária. Valor predefinido aquando de uma inserção é a data e hora desse instante \\  \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Configuration}}
+\label{tab:desc_configuration}
+\endlastfoot
+
+$configuration\_id$ & int identity(1,1) & Identificador numérico único da configuração & Chave primária \\ \hline
+$configuration\_name$ & nvarchar(100) & Identificador alfanumérico único da configuração & Chave candidata \\ \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Communication}}
+\label{tab:desc_communication}
+\endlastfoot
+
+$communication\_id$ & int identity(1,1) & Identificador numérico único da ção & Chave primária \\ \hline
+$communication_designation$ & nvarchar(100) & Identificador alfanumérico único da ação & Chave candidata \\ \hline
+value & int & Valor associado à ção & $0 \leq \textit{value} \leq 100$ \\ \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION TION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{ConfigurationCommunication}}
+\label{tab:desc_communication_configuration}
+\endlastfoot
+
+$configuration\_id$ & int & Identificador da configuração &  Chave primária. Chave estrangeira que referencia a tabela \textit{Configuration} \\ \hline
+$communition\_designation$ & nvarchar(100) & Identificador da configuração & Chave primária. Chave estrangeira que referencia a tabela \textit{Communication} \\ \hline
+\end{longtable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONTAINER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+\caption{Descrição da tabela Container} \label{tab:long} \\
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endfirsthead
+
+\hline 
+\multicolumn{1}{|c|}{\textbf{Nome da coluna}} & \multicolumn{1}{c|}{\textbf{Tipo}} & \multicolumn{1}{c|}{\textbf{Descrição}} & \multicolumn{1}{c|}{\textbf{Restrições}} \\ 
+\hline \hline
+\endhead
+
+\hline \multicolumn{4}{|r|}{{Continua na página seguinte}} \\ \hline
+\endfoot
+
+\caption{Descrição da tabela \textit{Container}}
+\label{tab:desc_container}
+\endlastfoot
+
+$container\_id$ & int identity(1,1) & Identificador numérico único do contentor & Chave primária \\ \hline
+latitude & decimal(19,16) & Coordenada correspondente à latitude onde se localiza o contentor & Chave Candidata em conjunto com o campo \textit{longitude}. $-90\leq \textit{latitude} \leq 90$ \\ \hline
+longitude & decimal(19,16) & Coordenada correspondente à longitude onde se localiza o contentor & Chave Candidata em conjunto com o campo \textit{latitude}. $-180 \leq \textit{longitude} \leq 180$ \\ \hline
+height & int & Valor correspondente à altura do contentor & $\textit{height} > 0 $ \\ \hline
+batery & int & Valor da bateria na última leitura efetuada & $0 \leq \textit{batery} \leq 100$ \\ \hline
+occupation & int & Valor da ocupação na última leitura efetuada & $0 \leq \textit{batery} \leq 100$ \\ \hline
+temperature & int & Valor da temperatura na última leitura efetuada & $\textit{batery} \geq -15$ \\ \hline
+$collect\_zone\_id$ & int & Identificador da zona de coleta onde o contentor está inserido atualmente & Chave estrangeira que referencia a tabela \textit{CollectZone} \\ \hline
+$configuration\_name$ & nvarchar(100) & Identificador da configuração associada ao contentor & Chave estrangeira que referencia a tabela \textit{Configuration} \\ \hline
+\end{longtable}
+
+\end{document}

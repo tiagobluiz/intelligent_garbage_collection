@@ -1,0 +1,100 @@
+#include "Sigfox.h"
+#include "I2C.h"
+#include "LPC17xx.h"
+#include "GPIO.h"
+#include "Timer.h"
+#include "SystemTick.h"
+
+extern char Rdbuffer[I2C_BUFFER_SIZE];
+extern char Wrbuffer[I2C_BUFFER_SIZE];
+extern int WrLength;
+extern int RdLength;
+extern int RdIndex;
+extern int state;
+
+void Sigfox_Delay(){
+	TIMER0_SetCount(miliseconds);
+	int initial = TIMER0_GetValue();
+	while(TIMER0_Elapse(initial) < DELAY_TIME);
+}
+
+void Sigfox_Init(void) {
+	I2C_Init();
+
+	//put 0 to tell Sigfox to start getting configuration from cloud
+	GPIO_SetIOPin(PORT_OUTPUT_GET_CONFIGURATION, 1);
+
+	//pin to tell Sigfox to start getting configuration from cloud
+	LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1&(~(0x3<<4))) | 0<<4;
+
+	//put input to pull down
+	LPC_PINCON->PINMODE1 |= 0x3 << 2;
+}
+
+int Sigfox_Read(char * buffer, int length) {
+
+	//wait to Sigfox go Idle
+	while(GPIO_GetIOPin(PORT_INPUT_CONFIGURATION_PENDING)&(1<<PORT_INPUT_CONFIGURATION_PENDING));
+
+	//put 0 to tell Sigfox to start getting configuration from cloud
+	GPIO_SetIOPin(PORT_OUTPUT_GET_CONFIGURATION, 0);
+
+	//delay
+	Sigfox_Delay();
+
+	//put 1
+	GPIO_SetIOPin(PORT_OUTPUT_GET_CONFIGURATION, 1);
+
+	//wait to Sigfox finish getting configuration
+	while(GPIO_GetIOPin(PORT_INPUT_CONFIGURATION_PENDING)&(1<<PORT_INPUT_CONFIGURATION_PENDING));
+
+	//delay
+	Sigfox_Delay();
+
+	//write Sigfox address and read action
+	Wrbuffer[0] = (I2C_SIGFOX_ADDRESS << 1) | 1;
+	RdIndex = 0;
+	RdLength = length;
+
+	//initiate I2C communication
+	I2C_Start();
+
+	//wait to read complete message
+	while (state == I2C_STARTED);
+
+	//slave not detected
+	if(state == 8)
+		return 0;
+
+	//save message to buffer
+	for (int i = 0; i < length; i++)
+		buffer[i] = Rdbuffer[i];
+
+	RdLength = 0;
+
+	return 1;
+}
+
+int Sigfox_Write(char * buffer, int length) {
+	//wait to Sigfox go Idle
+	while(GPIO_GetIOPin(PORT_INPUT_CONFIGURATION_PENDING)&(1<<PORT_INPUT_CONFIGURATION_PENDING));
+
+	//Every Sigfox message cannot exceed 12 bytes
+	if (length > I2C_BUFFER_SIZE - 1)
+		return -1; 					// buffer to big
+
+	//write Sigfox address and write action
+	Wrbuffer[0] = I2C_SIGFOX_ADDRESS;
+
+	//write to I2C buffer the message
+	for (int i = 1; i < length + 1; i++)
+		Wrbuffer[i] = buffer[i - 1];
+
+	//set message length
+	WrLength = length + 1;
+
+	//initiate I2C transmission
+	I2C_Start();
+
+	while (state == I2C_STARTED);
+}

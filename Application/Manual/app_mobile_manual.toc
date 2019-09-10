@@ -1,0 +1,44 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {portuguese}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}Dicion\IeC {\'a}rio de \IeC {\'\i }cones}{2}{section.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}Manual de Utiliza\IeC {\c c}\IeC {\~a}o}{2}{section.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1}\textit {Login}}{3}{subsection.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2}Gest\IeC {\~a}o ou Administra\IeC {\c c}\IeC {\~a}o}{4}{subsection.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3}Rotas}{5}{subsection.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4}Cami\IeC {\~o}es}{6}{subsection.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5}Esta\IeC {\c c}\IeC {\~o}es}{7}{subsection.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6}Configura\IeC {\c c}\IeC {\~o}es}{8}{subsection.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.7}Detalhes da rota}{9}{subsection.2.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.8}Contentores de uma rota}{10}{subsection.2.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.9}Zonas de coleta de uma rota}{11}{subsection.2.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.10}Coletas de uma rota}{12}{subsection.2.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.11}Aterros de uma rota}{13}{subsection.2.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.12}Detalhes de uma zona de coleta}{14}{subsection.2.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.13}Contentores de uma zona de coleta}{15}{subsection.2.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.14}Detalhes de um Contentor}{16}{subsection.2.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.15}Hist\IeC {\'o}rico de coletas de um Contentor}{17}{subsection.2.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.16}Hist\IeC {\'o}rico de lavagens de um Contentor}{18}{subsection.2.16}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.17}Configura\IeC {\c c}\IeC {\~o}es de um Contentor}{19}{subsection.2.17}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.18}Coletor}{20}{subsection.2.18}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.19}Coletor terminar a coleta}{21}{subsection.2.19}

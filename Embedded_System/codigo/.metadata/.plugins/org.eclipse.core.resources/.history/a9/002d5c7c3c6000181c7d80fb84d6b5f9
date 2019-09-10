@@ -1,0 +1,168 @@
+/*
+===============================================================================
+ Name        : SmartWaste.c
+ Author      : Diogo Dias
+ Version     : Beta
+ Description : main definition
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <stdio.h>
+#include <cr_section_macros.h>
+#include "GPIO.h"
+#include "SystemTick.h"
+#include "TemperatureSensor.h"
+#include "UltrasonicSensor.h"
+#include "RTC.h"
+#include "Timer.h"
+
+#define ECHO_PIN 7
+#define TRIGGER_PIN 8
+#define TEMPERATURE_PIN 9
+#define WASTE_BIN_COVER 11 				//P2.11
+
+#define TEMPERATURE_CONVERSION 9
+#define EINT1 1<<1
+#define MAX_RECEIVE_SIGFOX_MESSAGE 10
+#define MAX_TRANSMIT_SIGFOX_MESSAGE 12
+#define WAIT_COVER_TIME 30 				//in seconds
+
+#define ENABLE_CLOCK_POWER_TIMER0 1<<1
+#define ENABLE_CLOCK_POWER_GPIO 1<<15
+
+void EINT1_IRQHandler(void){
+	LPC_SC->EXTINT = 1<<1;
+}
+
+void enableExternalInterrupt(){
+	LPC_SC->EXTMODE = EINT1;
+	LPC_SC->EXTPOLAR = EINT1;
+	NVIC_EnableIRQ(EINT1_IRQn);
+}
+
+void disableExternalInterrupt(){
+	LPC_SC->EXTMODE = 0;
+	LPC_SC->EXTPOLAR = 0;
+	NVIC_DisableIRQ(EINT1_IRQn);
+}
+
+void configureExternalInterrupt(){
+	//select external interrupt 1 for pin P0.11 - function 01
+	LPC_PINCON->PINSEL4 &= ~(3<<(WASTE_BIN_COVER*2));
+	LPC_PINCON->PINSEL4 |= (1<<(WASTE_BIN_COVER*2));
+
+	enableExternalInterrupt();
+}
+
+int waitForCoverToClose(){
+
+	//start time
+	TIMER0_SetCount(second);
+	int initial = TIMER0_GetValue();
+
+	while(TIMER0_Elapse(initial)< 1);
+
+	//wait to echo go low
+	while(LPC_GPIO2->FIOPIN & (1 << WASTE_BIN_COVER))
+		if(TIMER0_Elapse(initial)> WAIT_COVER_TIME){
+			return 0;
+	}
+	return 1;
+}
+
+void getConfiguration(unsigned char * buffer, int length){
+	//TODO
+}
+
+void sendData(unsigned char * buffer, int length){
+	//TODO
+}
+
+void writeToFile(char * file, char * message){
+	FILE *f = fopen(file, "w");
+	if (f == NULL){
+		printf("Error opening file!\n");
+		exit(1);
+	}
+
+	fprintf(f, "%s\n", message);
+
+	fclose(f);
+}
+
+int readPercentageOfGarbage(int maxDistance){
+	int	distance = UltrasonicSensor_getDistance();
+	if(distance == -1){
+		printf("\n Distância : %d", distance);
+		return -1;
+	}
+	int percentage = distance * 100;
+	percentage /= maxDistance;
+	percentage = 100 - percentage;
+	printf("\n Distância : %d", distance);
+	return percentage;
+}
+
+
+void init(){
+	//get value core clock
+	SystemCoreClockUpdate();
+
+	//only enable clock/power to TIMER0 and GPIO
+	LPC_SC->PCONP = ENABLE_CLOCK_POWER_TIMER0 | ENABLE_CLOCK_POWER_GPIO;
+
+	//enable external interrupt
+	configureExternalInterrupt();
+
+	//start UltrasonicSensor
+	UltrasonicSensor_Init(TRIGGER_PIN, ECHO_PIN);
+
+	//start TemperatureSensor
+	TemperatureSensor_Init(TEMPERATURE_PIN, TEMPERATURE_CONVERSION, 1, 50);
+
+	//start timer
+	TIMER0_Init(second);
+}
+
+
+int main(void){
+	init();
+
+	unsigned char message [MAX_RECEIVE_SIGFOX_MESSAGE];
+	getConfiguration(message, MAX_RECEIVE_SIGFOX_MESSAGE);
+
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//if started in configure mode, we will read the container length
+	int maxDistance = UltrasonicSensor_getDistance();
+
+	printf("\n Max Distance %d", maxDistance);
+
+	int coverClosed = 1;
+	unsigned char sendBuffer [MAX_TRANSMIT_SIGFOX_MESSAGE];
+
+	while(1){
+		int result = 1;
+		int temperature = TemperatureSensor_GetTemperature(&result);
+		int percentage = readPercentageOfGarbage(maxDistance);
+
+		printf("\n Temperature: %d \n Percentage: %d \n -----------------------", temperature, percentage);
+
+		//sendData(sendBuffer, MAX_TRANSMIT_SIGFOX_MESSAGE);
+
+		//if nobody closed the cover, we will set a timer to wake up periodic
+		if(!coverClosed)
+			TIMER0_SetWait(second, 1);
+		enableExternalInterrupt();
+
+		__WFI();
+
+		disableExternalInterrupt();
+		TIMER0_Disable();
+
+		coverClosed = waitForCoverToClose();
+	}
+}

@@ -1,0 +1,71 @@
+(ExpressProject "SmartWasteEmbeddedSystem"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File "C:\Users\Diogo Dias\Downloads\orcad\HC-SR04.OLB"
+        (Type "Schematic Library"))
+      (File ".\arduino_sigfox.olb"
+        (Type "Schematic Library")))
+    (NoModify)
+    (File ".\smartwasteembeddedsystem.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x"))
+  (Folder "Outputs")
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (Arduino_Sigfox
+      (FullPartName "Arduino_Sigfox.Normal")
+      (LibraryName
+         "C:\FACULDADE\6_SEMESTRE\PS\REPOSITORIO\INTELLIGENT_GARBAGE_COLLECTING\EMBEDDED_SYSTEM\ESQUEMA ELETRICO\ORCAD_LIBRARY\ARDUINO_SIGFOX.OLB")
+      (DeviceIndex "0"))
+    (RESISTOR
+      (FullPartName "RESISTOR.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\DISCRETE.OLB")
+      (DeviceIndex "0"))
+    (ZVP4424/TO
+      (FullPartName "ZVP4424/TO.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\TRANSISTOR.OLB")
+      (DeviceIndex "0"))
+    (LPC1769
+      (FullPartName "LPC1769.Normal")
+      (LibraryName
+         "C:\FACULDADE\6_SEMESTRE\PS\REPOSITORIO\INTELLIGENT_GARBAGE_COLLECTING\EMBEDDED_SYSTEM\ESQUEMA ELETRICO\LIBRARY1.OLB")
+      (DeviceIndex "0"))
+    (VCC_BAR
+      (LibraryName "C:\CADENCE\SPB_17.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (HC-SR04
+      (FullPartName "HC-SR04.Normal")
+      (LibraryName "C:\USERS\DIOGO DIAS\DOWNLOADS\ORCAD\HC-SR04.OLB")
+      (DeviceIndex "0"))
+    (LPC1769FBD100
+      (FullPartName "LPC1769FBD100.Normal")
+      (LibraryName "C:\USERS\DIOGO DIAS\DOWNLOADS\ORCAD\LPC1769FBD100.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" "Library"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 0 200 0 222"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -31 52 1238 52 313")
+        (Scroll "-19 112")
+        (Zoom "82")
+        (Occurrence "/"))
+      (Path
+         "C:\FACULDADE\6_SEMESTRE\PS\REPOSITORIO\INTELLIGENT_GARBAGE_COLLECTING\EMBEDDED_SYSTEM\ESQUEMA ELETRICO\SMARTWASTEEMBEDDEDSYSTEM.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1")))
+  (LastUsedLibraryBrowseDirectory
+     "C:\Faculdade\6_Semestre\PS\repositorio\intelligent_garbage_collecting\Embedded_System\Esquema Eletrico\orcad_library"))

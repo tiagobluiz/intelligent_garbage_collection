@@ -1,0 +1,7 @@
+Neste capitulo aborda-se a recalendarização, o novo planeamento da Aplicação móvel e os motivos ao qual esta decisão.
+
+Referente ao novo planeamento da Aplicação móvel foi tomada a decisão de unificar as duas aplicações móveis. Esta decisão visa minimizar a repetição de código de acesso a Web API e permitir que o funcionário de gestão não fique interdito de operar com a aplicação, se este não tiver acesso ao seu telemóvel ou um outro do mesmo cargo, podendo assim iniciar secção num outro telemóvel de um outro funcionário independente do seu cargo.
+
+Tendo em conta este novo planeamento da aplicação, foi também realizado uma nova recalendarização e adição de objetivos mais claros.
+
+//imagem do meu novo plano

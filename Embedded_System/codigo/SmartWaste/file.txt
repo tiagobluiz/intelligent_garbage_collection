@@ -1,0 +1,4 @@
+{successOnReading:0,
+temperature:0,
+percentage:95,
+isCover:1}

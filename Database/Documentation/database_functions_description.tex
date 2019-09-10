@@ -1,0 +1,404 @@
+%%%%%
+% COLLECTS
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Collect}}
+	\label{tab:collect_procs}
+	\endlastfoot
+	
+	\textit{CreateCollect} & @\textit{containerId int}, @\textit{collectDate datetime} & Cria uma nova coleta referente a um contentor & - & 55001 \\ \hline
+	\textit{UpdateCollect} &  \textit{@containerId int, @oldCollectDate datetime, @newCollectDate datetime} & Atualiza a data da coleta & - & 55003 \\ \hline
+	\textit{GetContainerCollects} & \textit{@PageNumber int, @Rows int, @ContainerId int} & Lista com todas as coletas efetuadas sobre um contentor & Uma tabela com os campos \textit{total\_entries}, \textit{container\_id}, \textit{collect\_date} & - \\ \hline
+	\textit{GetContainerCollect} & \textit{@PageNumber int, @Rows int, @ContainerId int} & Informação sobre uma coleta efetuada sobre um contentor & Uma tabela com os campos \textit{container\_id}, \textit{collect\_date} & - \\ \hline
+\end{longtable}
+
+%%%%%
+% COLLECT ZONE
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Collect Zone}}
+	\label{tab:collect_zone_procs}
+	\endlastfoot
+	
+	\textit{CreateCollectZone} & \textit{@routeId int, @collectZoneId int OUT} & Cria uma zona de coleta & - & 55001 \\ \hline
+	\textit{UpdateCollectZone} & \textit{@collectZoneId int, @routeId int} & Atualiza a rota à qual a zona de coleta está associada & - & 55001, 55003 \\ \hline
+	\textit{ActivateCollectZone} & \textit{@collectZoneId int} & Ativa uma zona de coleta & - & 55003 \\ \hline
+	\textit{DeactivateCollectZone} & \textit{@collectZoneId int} & Desativa uma zona de coleta & - & 55003 \\ \hline
+	\textit{GetRouteCollectZones} & \textit{@PageNumber int, @Rows int, @RouteId int} & Lista de zonas de coleta de uma dada rota, com informações de localização e da taxa de ocupação mais alta dessa zona & Uma tabela com os campos \textit{total\_entries, collect\_zone\_id, route\_id, pick\_order, active, latitude, longitude} & - \\ \hline
+	\textit{GetRouteActiveCollectZones} & \textit{@PageNumber int, @Rows int, @RouteId int} & Lista de zonas de coleta ativas de uma dada rota, com informações de localização e da taxa de ocupação mais alta dessa zona & Uma tabela com os campos \textit{total\_entries, collect\_zone\_id, route\_id, pick\_order, active, latitude, longitude} & - \\ \hline
+	\textit{GetCollectZoneInfo} & \textit{@CollectZoneId int} & Informações sobre a zona de coleta, como a latitude, longitude do contentor com a maior taxa de ocupação no instante da \textit{query} & Uma tabela com os campos \textit{collect\_zone\_id, route\_id, pick\_order, active, latitude, longitude, general\_occupation, paper\_occupation, plastic\_occupation, glass\_occupation} & - \\ \hline
+	\textit{GetCollectZoneStatistics} & \textit{@CollectZoneId int} & Informações sobre a zona de coleta como o número total de contentores associados & Uma tabela com os campos \textit{collect\_zone\_id, num\_containers} & - \\ \hline
+	\textit{GetRouteCollectionPlan} & \textit{@PageNumber int, @Rows int, @RouteId int, @ContainerType nvarchar(7)} & Lista com as zonas de coleta que reúnem as condições necessárias para serem recolhidas. Ordenada pela ordem de coleta (\textit{pick\_order}) & Uma tabela com os campos \textit{total\_entries, collect\_zone\_id, route\_id, pick\_order, active, latitude, longitude} & - \\ \hline
+	\textit{GetCollectZonesInRange} & \textit{@Latitude decimal(9,6), @Longitude decimal(9,6), @Range smallint} & Lista com as zonas de coleta cuja localização se encontra a um máximo de \textit{@Range} metros da localização referida pela par de coordenadas \textit{[@Latitude, @Longitude]} & Uma tabela com os campos \textit{collect\_zone\_id, route\_id, pick\_order, active, latitude, longitude} & - \\ \hline
+\end{longtable}
+
+%%%%%
+% COMMUNICATION
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Communication}}
+	\label{tab:communication_procs}
+	\endlastfoot
+	
+	\textit{CreateCommunication} & \textit{@communicationDesignation nvarchar(100), @value tinyint, @communicationId int OUT} & Cria uma nova comunicação & - & - \\ \hline
+	\textit{UpdateCommunication} & \textit{@communicationId int, @communicationId int, @value tinyint} & Atualiza uma comunicação & - & 55003 \\ \hline
+	\textit{DeleteCommunication} & \textit{@communicationId int} & Apaga uma comunicação, caso esta não seja usado por nenhuma configuração & - & 55002, 55003 \\ \hline
+	\textit{GetAllCommunications} &  \textit{@PageNumber int, @Rows int} & Lista com informações sobre as comunicações existentes & Uma tabela com os campos\textit{total\_entries, communication\_id, communication\_designation} \\ \hline
+	\textit{GetCommunication} &  \textit{@PageNumber int, @Rows int} & Informações sobre uma comunicação & Uma tabela com os campos\textit{communication\_id, communication\_designation} \\ \hline
+\end{longtable}
+
+%%%%%
+% CONFIGURATION
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Configuration}}
+	\label{tab:configuration_procs}
+	\endlastfoot
+	
+	\textit{CreateConfiguration} & \textit{@configurationName nvarchar(100), @configurationId int OUT} & Cria uma configuração & - & - \\ \hline
+	\textit{DeleteConfiguration} & \textit{@configurationId int} & Apaga uma configuração, caso esta não seja usada por nenhum contentor & - & 55002, 55003 \\ \hline
+	\textit{GetAllConfigurations} & \textit{@PageNumber int, @Rows int} & Lista com informações sobre as configurações existentes & Uma tabela com os campos \textit{total\_entries, configuration\_id, configuration\_name} & - \\ \hline
+\end{longtable}
+
+%%%%%
+% CONFIGURATION COMMUNICATION
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{ConfigurationCommunication}}
+	\label{tab:configuration_communication_procs}
+	\endlastfoot
+	
+	\textit{AssociateCommunicationToThe- Configuration} & \textit{@configurationId int, @communicationId int} & Adiciona uma comunicação à lista de comunicações de uma configuração & - & 55001 \\ \hline
+	\textit{DisassociateCommunicationTo- Configuration} & \textit{@configurationId int, @communicationId int} & Retira da lista de comunicações de uma configuração & - & 55003 \\ \hline
+	\textit{GetConfigurationCommunications} & \textit{@ConfigurationId int} & Lista com informações sobre as comunicações pertencentes a uma dada configuração & Uma tabela com os campos \textit{total\_entries, configuration\_id, communication\_id, communication\_id, value} & - \\ \hline
+	\textit{GetConfigurationCommunication} & \textit{@ConfigurationId int} & Informações sobre uma comunicação pertencente a uma dada configuração & Uma tabela com os campos \textit{configuration\_id, communication\_id, communication\_id, value} & - \\ \hline
+	\textit{GetCommunicationValueForConfiguration} & \textit{@ConfigurationId int, @CommunicationDesignation nvarchar(100)} & Devolve o valor associado a uma comunicação para uma dada configuração. Função utilitária & Um inteiro com o valor pretendido & - \\ \hline
+\end{longtable}
+
+%%%%%
+% CONTAINER
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Container}}
+	\label{tab:container_procs}
+	\endlastfoot
+	
+	\textit{CreateContainer} & \textit{@iotId nvarchar(250), @latitude decimal(9,6), @longitude decimal(9,6), @height int, @type nvarchar(7), @collecZoneId int, @configId int, @containerId int OUT} & Cria um contentor & - & 55001 \\ \hline
+	\textit{UpdateContainerConfiguration} & \textit{@containerId int, @iotId nvarchar(250), @latitude decimal(9,6), @longitude decimal(9,6), @height int, @type nvarchar(7), @collectZoneId int, @configurationId int} & Atualiza os dados de um contentor & - & 55001, 55003 \\ \hline
+	\textit{UpdateContainerLocalization} & \textit{@containerId int, @latitude decimal(9,6), @longitude decimal(9,6), @collectZoneId int} & Realoca um contentor. Caso seja necessário criar uma nova zona de coleta, o parâmetro @collectZoneId deve ter o valor -1. Caso a zona de coleta tenha mais do que um contentor, uma nova será criada e associada ao contentor, caso contrário, é reaproveitada a zona de coleta atual. A rota em que a zona de coleta se irá inserir, é assumida pela rota atual da zona de coleta em vigor. Se o objetivo for adicionar o contentor a uma zona de coleta já existente, então deve ser passado um identificador válido & - & 55001, 55003 \\ \hline
+	\textit{UpdateContainerReads} & \textit{@iotId int, @battery tinyint, @occupation tinyint, @temperature tinyint} & Atualiza as leituras do dispositivo do contentor & - & 55003 \\ \hline
+	\textit{DeactivateContainer} & \textit{@containerId int} & Desativa um contentor & - & 55003 \\ \hline
+	\textit{ActivateContainer} & \textit{@containerId int} & Ativa um contentor & - & 55003 \\ \hline
+	\textit{GetCollectZoneContainers} & \textit{@PageNumber int, @Rows int, @CollectZoneId int} & Lista com todos os contentores associados à zona de coleta, ativos e inativos & Uma tabela com os campos \textit{total\_entries, container\_id, iot\_id, latitude, longitude, height, container\_type, last\_read\_date, battery, occupation, temperature, collect\_zone\_id, configuration\_id} & - \\ \hline
+	\textit{GetCollectZoneActiveContainers} & \textit{@PageNumber int, @Rows int, @CollectZoneId int} & Lista com todos os contentores associados à zona de coleta, cujo estado é ativo & Uma tabela com os campos \textit{total\_entries, container\_id, iot\_id, latitude, longitude, height, container\_type, last\_read\_date, battery, occupation, temperature, collect\_zone\_id, configuration\_id} & - \\ \hline
+	\textit{GetRouteContainers} & \textit{@PageNumber int,  @Rows int, @RouteId int} & Lista de contentores associados a uma dada rota, ativos e inativos & Uma tabela com os campos \textit{total\_entries, container\_id, iot\_id, latitude, longitude, height, container\_type, last\_read\_date,  battery, occupation, temperature, collect\_zone\_id, configuration\_id} & - \\ \hline
+	\textit{GetRouteActiveContainers} & \textit{@PageNumber int,  @Rows int, @RouteId int} & Lista de contentores associados a uma dada rota, cujo estado é ativo & Uma tabela com os campos \textit{total\_entries, container\_id, iot\_id, latitude, longitude, height, container\_type, last\_read\_date, battery, occupation, temperature, collect\_zone\_id, configuration\_id} & - \\ \hline
+	\textit{GetContainerInfo} & \textit{@ContainerId int} & Informações sobre um dado contentor & Uma tabela com os campos \textit{container\_id, iot\_id, latitude, longitude, height, container\_type, battery, occupation, temperature, collect\_zone\_id, configuration\_id} & - \\ \hline
+	\textit{GetContainerStatistics} & \textit{@ContainerId int} & Informações sobre o contentor como o número total de lavagens e recolhas efetuadas sobre o mesmo & Uma tabela com os campos \textit{num\_washes, num\_collects} & - \\ \hline
+	\textit{GetContainersWithOccupationB- etweenRange} & \textit{@MinOccupation int, @MaxOccupation int} & Informação com a percentagem de contentores que tiverem a ocupação entre dois valores, onde \textit{MinOccupation} é exclusivo e \textit{MaxOccupation} inclusivo & Decimal(4,2) com a percentagem de contentores que reunirem as condições & - \\ \hline
+	\textit{GetContainersOfARouteWithOc- cupationBetweenRange}  & \textit{@MinOccupation int, @MaxOccupation int, @RouteId int} & Informação com a percentagem de contentores que pertencem a uma rota e tiverem a ocupação entre dois valores, onde \textit{MinOccupation} é exclusivo e \textit{MaxOccupation} inclusivo & Decimal(4,2) com a percentagem de contentores que reunirem as condições & - \\ \hline
+\end{longtable}
+
+%%%%%
+% ROUTE COLLECTION
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Route Collection}}
+	\label{tab:route_collection_procs}
+	\endlastfoot
+	
+	\textit{CreateRouteCollection} & \textit{@routeId int, @truckPlate nvarchar(8), @startDate datetime} & Cria uma coleta de uma rota & - & 55001, 55004 \\ \hline
+	\textit{CollectRoute} & \textit{@latitude decimal(9,6), @longitude decimal(9,6), @truckPlate nvarchar(8), @startDate datetime, @routeId int OUT} & Cria uma coleta para uma rota escolhida pelo sistema & - & 55001,55004 \\ \hline
+	\textit{UpdateRouteCollection} & \textit{@routeId int, @startDate datetime, @finishDate datetime, @truckPlate nvarchar(8)} & Atualiza as informações de uma coleta de uma dada rota & - & 55001, 55003 \\ \hline
+	\textit{GetRouteCollections} & \textit{@PageNumber int, @Rows int, @RouteId int} & Lista de coletas de uma dada rota & Uma tabela com os campos \textit{total\_entries, route\_id, start\_date, finish\_date, truck\_plate} & - \\ \hline
+	\textit{GetRouteCollection} & \textit{@RouteId int, @StartDate datetime} & Informações de uma coleta de uma dada rota & Uma tabela com os campos \textit{route\_id, start\_date, finish\_date, truck\_plate} & - \\ \hline
+	\textit{GetTruckCollections} & \textit{@PageNumber int, @Rows int, @TruckPlate nvarchar(8)} & Lista com informações sobre as coletas realizadas pelo camião & Uma tabela com os campos \textit{total\_entries, start\_date, finish\_date, truck\_plate} & - \\ \hline
+\end{longtable}
+
+%%%%%
+% ROUTE DROP ZONE
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Route Drop Zones}}
+	\label{tab:route_drop_zone_procs}
+	\endlastfoot
+	
+	\textit{CreateRouteDropZone} & \textit{@routeId int, @dropZoneId int} & Associa um aterro a uma dada rota & - & 55001 \\ \hline
+	\textit{DeleteRouteDropZone} & \textit{@routeId int, @dropZoneId int} & Retira a associação do aterro com uma dada rota & - & 55003 \\ \hline
+	\textit{GetRouteDropZones} & \textit{@PageNumber int, @Rows int, @RouteId int} & Lista de aterros associados a uma dada rota, com informações de localização & Uma tabela com os campos \textit{total\_entries, drop\_zone\_id, route\_id, latitude, longitude} & - \\ \hline
+	\textit{GetRouteDropZone} & \textit{@RouteId int, @DropZoneId int} & Informações sobre um aterro & Uma tabela com os campos \textit{drop\_zone\_id, route\_id, latitude, longitude} & - \\ \hline
+\end{longtable}
+
+%%%%%
+% ROUTE
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Route}}
+	\label{tab:route_procs}
+	\endlastfoot
+	
+	\textit{CreateRoute} & \textit{@startPoint int, @finishPoint int, @routeId int OUT} & Cria uma rota & - & 55001 \\ \hline
+	\textit{UpdateRoute} & \textit{@routeId int, @startPoint int, @finishPoint int} & Atualiza a localização de uma rota & - & 55001 \\ \hline
+	\textit{ActivateRoute} & \textit{@routeId int} & Ativa uma rota & - & 55003 \\ \hline
+	\textit{DeactivateRoute} & \textit{@routeId int} & Desativa uma rota, caso esta não tenha qualquer zona de coleta ativa associada & - & 55003, 55004 \\ \hline
+	\textit{GetAllRoutes} & \textit{@PageNumber int, @Rows int} & Lista com os pontos de partida e chegada de todas as rotas & Uma tabela com os campos \textit{total\_entries, route\_id, active, start\_point\_station\_name, start\_point\_latitude, start\_point\_longitude, finish\_point\_station\_name, finish\_point\_latitude, finish\_point\_longitude} & - \\ \hline
+	\textit{GetAllActiveRoutes} & \textit{@PageNumber int, @Rows int} & Lista com os pontos de partida e chegada de todas as rotas & Uma tabela com os campos \textit{total\_entries, route\_id, active, start\_point\_station\_name, start\_point\_latitude, start\_point\_longitude, finish\_point\_station\_name, finish\_point\_latitude, finish\_point\_longitude} & - \\ \hline
+	\textit{GetRouteStatistics} & \textit{@RoutId int} & Informações sobre o número de zonas de coleta de cada uma, de contentores e de coletas & Uma tabela com os campos \textit{route\_id, num\_collect\_zones, num\_containers, num\_collects} & - \\ \hline
+	\textit{GetRouteInfo} & \textit{@RouteId int} & Informações sobre os pontos de partida e chegada da rota & Uma tabela com os campos \textit{route\_id, active, start\_point\_station\_name, start\_point\_latitude, start\_point\_longitude, finish\_point\_station\_name, finish\_point\_latitude, finish\_point\_longitude} & - \\ \hline
+	\textit{GetCollectableRoutes} & \textit{@PageNumber int, @Rows int} & Lista com as rotas que podem ser recolhidas & Uma tabela com os campos \textit{total\_entries, route\_id, start\_point, finish\_point, active} & - \\ \hline
+\end{longtable}
+
+%%%%%
+% STATION
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Station}}
+	\label{tab:station_procs}
+	\endlastfoot
+	
+	\textit{CreateStation} & \textit{@stationName nvarchar(100), @latitude decimal(9,6), @longitude decimal(9,6), @stationType nvarchar(12), @stationId int OUT} & Cria uma estação. Caso esta seja um aterro (o tipo é definido pelo parâmetro \textit{@stationType}), é criada automaticamente uma entrada na tabela \textit{DropZone}  & - & - \\ \hline
+	 \textit{UpdateStation} & \textit{@stationId int, @stationName nvarchar(100), @latitude decimal(9,6), @longitude decimal(9,6), @stationType nvarchar(12)} & Atualiza os dados referentes a uma estação. Se houver uma mudança do tipo da estação de aterro para base, é eliminada a entrada na tabela \textit{DropZone}, contudo, não deve haver qualquer rota a usar a estação como um dos seus aterros. Caso a mudança seja de base para aterro, é criada uma entrada na tabela \textit{DropZone} & - & 55002, 55003 \\ \hline
+	 \textit{DeleteStation} & \textit{@stationId int} & Apaga uma estação, caso nenhuma rota a usa como ponto de partida e/ou chegada. Se for um aterro, só poderá ser eliminado se nenhuma rota fizer isso do mesmo & - & 55002, 55003 \\ \hline
+	 \textit{GetAllStations} & \textit{@PageNumber int, @Rows int} & Lista com informações sobre todas as estações & Uma tabela com os campos \textit{total\_entries, station\_id, station\_name, latitude, longitude, station\_type} & - \\ \hline
+	 \textit{GetStationInfo} & \textit{@StationId int} & Informações sobre uma dada estação & Uma tabela com os campos \textit{station\_id, station\_name, latitude, longitude, station\_type} & - \\ \hline
+\end{longtable}	
+	
+%%%%%
+% Truck
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Truck}}
+	\label{tab:truck_procs}
+	\endlastfoot
+	
+	\textit{CreateTruck} & \textit{@registration\_plate nvarchar(8)} & Cria um camião & - & - \\ \hline
+	\textit{ActivateTruck} & \textit{@registration\_plate nvarchar(8)} & Ativa um camião & - & - \\ \hline
+	\textit{DeactivateTruck} & \textit{@registration\_plate nvarchar(8)} & Desativa um camião & - & - \\ \hline
+	\textit{GetAllTrucks} & \textit{@PageNumber int, @Rows int} & Lista com informações sobre todos os camiões & Uma tabela com os campos \textit{total\_entries, registration\_plate, active} & - \\ \hline
+	\textit{GetAllActiveTrucks} & \textit{@PageNumber int, @Rows int} & Lista com informações sobre todos os camiões ativos & Uma tabela com os campos \textit{total\_entries, registration\_plate, active} & - \\ \hline
+	\textit{GetTruck} & \textit{@RegistrationPlate nvarchar(8)} & Informações sobre um camião & Uma tabela com os campos \textit{registration\_plate, active} & - \\ \hline
+\end{longtable}	
+
+%%%%%
+% WASH
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+	\multicolumn{1}{|l|}{\textbf{Nome}} & \multicolumn{1}{l|}{\textbf{Parâmetros}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Retorno}} & \multicolumn{1}{l|}{\textbf{Erros}}  \\  
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Procedimentos e funções associadas à tabela \textit{Wash}}
+	\label{tab:wash_procs}
+	\endlastfoot
+	
+	\textit{CreateWash} & @\textit{containerId int}, @\textit{washDate datetime} & Cria uma nova lavagem referente a um contentor & - & 55001 \\ \hline
+	\textit{UpdateWash} &  \textit{@containerId int, @oldWashDate datetime, @newWashDate datetime} & Atualiza a data da lavagem & - & 55003 \\ \hline
+	\textit{GetContainerWashes} & \textit{@PageNumber int, @Rows int, @ContainerId int} & Lista com informações sobre as lavagens efetuadas sobre um dado contentor & Uma tabela com os campos \textit{total\_entries, container\_id} \textit{wash\_date} & - \\ \hline
+	\textit{GetContainerWash} & \textit{@PageNumber int, @Rows int, @ContainerId int} & Informações sobre uma lavagem efetuada sobre um dado contentor & Uma tabela com os campos \textit{container\_id} \textit{wash\_date} & - \\ \hline
+\end{longtable}	
+
+%%%%%
+% ERROS
+%%%%%
+\begin{longtable}{|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{5cm}|}
+	\hline 
+	\multicolumn{1}{|l|}{\textbf{Código}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Exemplo}} \\ 
+	\hline
+	\hline 
+	\endfirsthead
+	
+	\hline
+		\multicolumn{1}{|l|}{\textbf{Código}} & \multicolumn{1}{l|}{\textbf{Descrição}} & \multicolumn{1}{l|}{\textbf{Exemplo}} \\ 
+	\hline
+	\hline 
+	\endhead
+	
+	\hline \multicolumn{5}{|r|}{{Continua na página seguinte}} \\ \hline
+	\endfoot
+	
+	\caption{Mapeamento dos códigos de erro}
+	\label{tab:errors_map}
+	\endlastfoot
+	55001 & Uma das dependências diretas não é válida. Tratamento do erro de \textit{foreign key} inválida & Tentativa de inserção na tabela \textit{Route}, passando um \textit{start\_point} inválido.  \\ \hline
+	55002 & Existência de entradas dependentes do registo que se tentou eliminar ou atualizar. Tratamento do erro  & Eliminar um aterro quando ainda há rotas que fazem uso do mesmo \\ \hline
+	55003 & Entrada não existente & Tentativa de atualização ou eliminação de uma entrada inexistente \\ \hline
+	55004 & Permissão negada. Garantia de aplicação de regras de negócio & Tentativa de \\ \hline
+	55005 & Erro durante um teste da base de dados & Um teste da base de dados falhou \\ \hline
+	
+\end{longtable}	

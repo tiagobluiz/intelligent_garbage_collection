@@ -1,0 +1,146 @@
+#include <TemperatureSensor.h>
+
+static int iopin;
+
+int TemperatureSensor_WriteScratchpad(int numberOfBitsConversion, int lowTemperature, int highTemperature){
+	if(!OneWire_Reset()){
+		printf("Não deu reset");
+		return 0;
+	}
+	OneWire_Write(COMMAND_SKIP_ROOM);
+	OneWire_Write(FUNCTION_WRITE_SCRATCHPAD);
+	char buffer []= {highTemperature, lowTemperature, NUMBER_OF_BITS(numberOfBitsConversion)};
+	OneWire_WriteBytes(buffer, 3);
+	return 1;
+}
+
+int TemperatureSensor_SaveScratchpad(){
+	if(!OneWire_Reset()){
+		printf("Não deu reset");
+		return 0;
+	}
+	OneWire_Write(COMMAND_SKIP_ROOM);
+	OneWire_Write(FUNCTION_COPY_SCRATCHPAD);
+
+	//put bus high for at least 10 miliseconds
+	GPIO_SetIOPin(iopin, 1);
+	delay(13, miliseconds);
+	return 1;
+}
+
+// returns boolean
+int TemperatureSensor_CRCCalculator(char buffer [], int length, char crcGiven){
+	char crc = 0;
+	for(int idx = 0; idx < length; idx ++){
+		unsigned char byte = buffer[idx];
+		for(int i = 0; i < 8; i++, byte>>=1){
+			char bit1 = (crc^byte)&0x1;
+			crc>>=1;
+			if(bit1)
+				crc^= 0x8C;
+		}
+	}
+	return crc == crcGiven;
+}
+
+int TemperatureSensor_ReadAndCheckScratchpad(char buffer [MEMORY_LENGTH_BYTES]){
+	if(!OneWire_Reset()){
+		printf("Não deu reset");
+		return 0;
+	}
+	OneWire_Write(COMMAND_SKIP_ROOM);
+	OneWire_Write(FUNCTION_READ_SCRATCHPAD);
+	OneWire_ReadBytes(buffer, MEMORY_LENGTH_BYTES);
+
+	int lastIdx = MEMORY_LENGTH_BYTES - 1;
+	if(!TemperatureSensor_CRCCalculator(buffer, lastIdx, buffer[lastIdx])){
+		printf("CRC invalid");
+		return 0;
+	}
+	return 1;
+}
+
+void TemperatureSensor_SetConfiguration(int numberOfBitsConversion, int lowTemperature, int highTemperature){
+	//write configuration in sensor memory
+	TemperatureSensor_WriteScratchpad(numberOfBitsConversion, lowTemperature, highTemperature);
+
+	//check configuration
+	char buffer [MEMORY_LENGTH_BYTES];
+	if(!TemperatureSensor_ReadAndCheckScratchpad(buffer))
+		printf("Configuration error");
+
+	//save memory in EEPROM
+	TemperatureSensor_SaveScratchpad();
+}
+
+float TemperatureSensor_ConvertBufferTo9Bit(char * buffer){
+	int count = buffer[1];
+	count <<= 5;
+	count |= buffer[0]>>3;
+	float temp = count;
+	return temp*0.5;
+}
+
+int TemperatureSensor_ConvertTemperature(){
+	//start converting temperature
+	if(!OneWire_Reset()){
+		printf("Não deu reset");
+		return 0;
+	}
+	OneWire_Write(COMMAND_SKIP_ROOM);
+	OneWire_Write(FUNCTION_CONVERT_TEMPERATURE);
+
+	//put bus high to give power
+	GPIO_SetIOPin(iopin, 1);
+	delay(CONVERSION_TIME_9_BITS, miliseconds);
+	return 1;
+}
+
+float TemperatureSensor_GetTemperature(int * result){
+
+	if(!TemperatureSensor_ConvertTemperature()){
+		*result = 0;
+		return 0;
+	}
+
+	char buffer [MEMORY_LENGTH_BYTES];
+	if(!TemperatureSensor_ReadAndCheckScratchpad(buffer)){
+		printf("Read Temperature error");
+		*result = 0;
+		return 0;
+	}
+
+	for(int i = 0; i < MEMORY_LENGTH_BYTES; i++)
+		printf("0x%02x \n ", buffer[i]);
+
+	printf("------------------ \n");
+
+	//success on reading
+	*result = 1;
+
+	return TemperatureSensor_ConvertBufferTo9Bit(buffer);
+}
+
+int TemperatureSensor_HasAlarm(){
+	if(!TemperatureSensor_ConvertTemperature())
+		return -1;
+
+	if(!OneWire_Reset()){
+		printf("Não deu reset");
+		return -1;
+	}
+	OneWire_Write(COMMAND_ALARM_SEARCH);
+	int bit0 = OneWire_ReadBit();
+	int bit0Complement = OneWire_ReadBit();
+	return bit0 != bit0Complement;
+}
+
+void TemperatureSensor_Init(int pin, int numberOfBitsConversion, int lowTemperature, int highTemperature){
+	OneWire_Init(pin);
+	iopin = pin;
+	TemperatureSensor_SetConfiguration(numberOfBitsConversion, lowTemperature, highTemperature);
+}
+
+
+
+

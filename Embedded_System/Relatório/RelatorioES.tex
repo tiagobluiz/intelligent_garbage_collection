@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+\usepackage{graphicx}
+
+\begin{document}
+\section{Protocolo}
+
+Para que o microcontrolador consiga comunicar com o servidor remoto foi necessário escolher um protocolo de comunicação. Existe muitos protocolos de comunicação criados para sistemas embebidos, tais como, BLE (bluetooth low energy), wifi, sigfox, neul, 3G, 4G, LoRaWAN, etc...
+O protocolo que são mais usados pelo os IoT neste momento são o SigFox e o LoRaWAN devido ao baixo consumo de bateria e a grande área de rede de comunicação (LPWAN – Low Power Wide Area Network).
+
+\section{LoRa}
+
+LoRa é a camada física ou a modulação sem fios que permite criar comunicações a grandes distâncias. Muitos sistemas sem fios, usam frequency shifting keying modulation (FSK) como camada física, isto porque é uma modulação que consome pouca energia. LoRa usa chirp spreak spectrum modulation que mantem a mesma característica de baixo consumo de energia como as modulações FSK, mas tem um aumento no alcance da área de comunicação.
+
+
+\section{LaRaWAN}
+
+LoRaWAN define o protocolo de comunicação e a arquitetura do sistema para rede e usa o LoRa para estabelecer comunicações de longo alcance. É o protocolo e a arquitetura da rede que tem a maior influencia na duração da bateria de um dispositivo, da capacidade da rede, da qualidade do serviço, da segurança e o número de aplicações diferentes servidas pela rede.
+
+\section{Arquitetura da rede}
+Muitas redes existentes usam uma arquitetura de rede de malha (mesh network), isto é, cada nó comunica com todos os outros nós que estão na mesma rede. Assim aumenta o alcance e o tamanho de nós de uma rede. Mas por oposição, aumenta a complexidade (um nó comunica com vários nós ao mesmo tempo), diminui a capacidade da rede (existe um enorme tráfego entre nós por haver várias ligações) e consome muito mais energia (cada nó terá que receber e enviar informações dos outros nós mesmo que a informação não seja relevante para estes. 
+
+\includegraphics{FM_Mesh.jpg}
+
+
+Uma arquitetura de estrela de longo alcance (arquitetura usada pelo LoRaWAN) é a melhor neste caso para ter um baixo consumo de bateria.
+
+\includegraphics{Star_Network_topology.png}
+
+Numa rede LoRaWAN os dispositivos não estão associados a uma gateway. Em vez disso, a informação é enviada para todos os gateways que estão dentro do raio de alcance. Cada gateway irá propagar o pacote recebido para um servidor colocado na cloud, por via de um blackhaul (celular, ethernet, Wi-fi). A complexidade e tratamento é empurrada para o servidor, que irá tratar dos reconhecimentos de chegada, verificações de segurança, adaptar a transmissão de dados, etc.
+
+\section{Tempo de vida da bateria}
+
+Os dispositivos que usam a rede LoRaWAN realizam comunicações assíncronas e só comunicam quando tem informação para enviar. Este tipo de protocolo é referido por Aloha. Nos protocolos síncronos é necessário que o dispositivo se sincronize com a rede para observar se há mensagens, consumindo assim mais bateria.
+
+\section{Tipos de Serviço}
+
+Cada sistema embebido tem o seu propósito de ter sido criado, e como tal, existe diferenças nas necessidades de cada um. De modo a otimizar cada necessidade de um sistema embebido, LoRaWAN usa classes diferentes para cada dispositivo. Assim certos dispositivos irão poder ter maior downlink (o que envolve um maior consumo de bateria) e outros menor downlink (obtendo uma maior duração da bateria).
+
+\includegraphics{LoRaWAN_Classes.png}
+
+Classe A – Comunicação bidirecional
+
+Os dispositivos que tem a classe A, usufruem de comunicação bidirecional, quando um dispositivo envia informação, este terá um intervalo para receber transmissões. Esta é a classe que permite maior poupança de bateria. Não existe limite para mensagens enviadas, mas para receber este está muito limitado, visto que tem que enviar primeiro e posteriormente irá ter um intervalo para receber dados. Assim todas aos dados enviados para o dispositivo tem que aguardar que o dispositivo comece uma transmissão. 
+
+Classe B – Comunicação bidirecional com intervalos para receber dados
+
+Esta classe tem todas as funcionalidades da classe A, mas tem uma diminuição de latência. Isto porque, os dispositivos com a classe B tem a adição de uma janela de tempo para receber dados. Para o dispositivo receber os dados numa janela temporal, este recebe um sincronização-temporal beacon do gateway. Isto assim permite ao servidor saber quando o dispositivo está à escuta. 
+
+Classe C – Comunicação bidirecional a tempo inteiro
+
+Dispositivos com a classe C não tem restrições para receber dados. Podendo receber dados a tempo inteiro, menos quando estão a enviar. Esta classe é a que consome maior bateria. Está classe é direcionada para sistemas embebidos que necessitem uplink e downlink sem restrições, não havendo latência nas transmissões.
+
+
+\end{document}

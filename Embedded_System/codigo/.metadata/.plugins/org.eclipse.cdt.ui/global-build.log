@@ -1,0 +1,93 @@
+16:05:34 **** Clean-only build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r clean 
+rm -rf  ./src/system_LPC17xx.o  ./src/system_LPC17xx.d  libCMSIS_CORE_LPC17xx.a
+ 
+16:05:34 **** Clean-only build of configuration Debug for project SmartWaste ****
+make -r -j4 clean 
+rm -rf  ./src/ExternalInterrupt.o ./src/GPIO.o ./src/I2C.o ./src/OneWire.o ./src/RTC.o ./src/Sigfox.o ./src/SmartWaste.o ./src/SystemTick.o ./src/TemperatureSensor.o ./src/Timer.o ./src/UltrasonicSensor.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o  ./src/ExternalInterrupt.d ./src/GPIO.d ./src/I2C.d ./src/OneWire.d ./src/RTC.d ./src/Sigfox.d ./src/SmartWaste.d ./src/SystemTick.d ./src/TemperatureSensor.d ./src/Timer.d ./src/UltrasonicSensor.d ./src/cr_startup_lpc175x_6x.d ./src/crp.d  SmartWaste.axf
+ 
+16:05:41 **** Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+Building file: ../src/system_LPC17xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_CMSIS=CMSIS_CORE_LPC17xx -I"C:\Faculdade\6_Semestre\PS\repositorio\intelligent_garbage_collecting\Embedded_System\codigo\CMSIS_CORE_LPC17xx\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m3 -mthumb -D__REDLIB__ -specs=redlib.specs -MMD -MP -MF"src/system_LPC17xx.d" -MT"src/system_LPC17xx.o" -MT"src/system_LPC17xx.d" -o "src/system_LPC17xx.o" "../src/system_LPC17xx.c"
+Finished building: ../src/system_LPC17xx.c
+ 
+Building target: libCMSIS_CORE_LPC17xx.a
+Invoking: MCU Archiver
+arm-none-eabi-ar -r  "libCMSIS_CORE_LPC17xx.a"  ./src/system_LPC17xx.o   
+c:\nxp\MCUXpressoIDE_10.1.1_606\ide\tools\bin\arm-none-eabi-ar.exe: creating libCMSIS_CORE_LPC17xx.a
+Finished building target: libCMSIS_CORE_LPC17xx.a
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "libCMSIS_CORE_LPC17xx.a" ; # arm-none-eabi-objdump -h -S "libCMSIS_CORE_LPC17xx.a" >"libCMSIS_CORE_LPC17xx.lss"
+   text	   data	    bss	    dec	    hex	filename
+    404	      4	      0	    408	    198	system_LPC17xx.o (ex libCMSIS_CORE_LPC17xx.a)
+ 
+16:05:51 **** Clean-only build of configuration Debug for project CMSIS_CORE_LPC17xx ****
+make -r clean 
+rm -rf  ./src/system_LPC17xx.o  ./src/system_LPC17xx.d  libCMSIS_CORE_LPC17xx.a
+ 
+16:05:54 **** Clean-only build of configuration Debug for project CMSIS_CORE_LPC17xx ****
+make -r clean 
+rm -rf  ./src/system_LPC17xx.o  ./src/system_LPC17xx.d  libCMSIS_CORE_LPC17xx.a
+ 
+16:05:59 **** Clean-only build of configuration Debug for project CMSIS_CORE_LPC17xx ****
+make -r clean 
+rm -rf  ./src/system_LPC17xx.o  ./src/system_LPC17xx.d  libCMSIS_CORE_LPC17xx.a
+ 
+16:05:59 **** Clean-only build of configuration Debug for project SmartWaste ****
+make -r -j4 clean 
+rm -rf  ./src/ExternalInterrupt.o ./src/GPIO.o ./src/I2C.o ./src/OneWire.o ./src/RTC.o ./src/Sigfox.o ./src/SmartWaste.o ./src/SystemTick.o ./src/TemperatureSensor.o ./src/Timer.o ./src/UltrasonicSensor.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o  ./src/ExternalInterrupt.d ./src/GPIO.d ./src/I2C.d ./src/OneWire.d ./src/RTC.d ./src/Sigfox.d ./src/SmartWaste.d ./src/SystemTick.d ./src/TemperatureSensor.d ./src/Timer.d ./src/UltrasonicSensor.d ./src/cr_startup_lpc175x_6x.d ./src/crp.d  SmartWaste.axf
+ 
+16:06:05 **** Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+make: Nothing to be done for `all'.
+16:06:07 **** Incremental Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+make: Nothing to be done for `all'.
+16:06:13 **** Incremental Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+make: Nothing to be done for `all'.
+16:06:14 **** Build of configuration Release for project SmartWaste ****
+make -r -j4 all 
+Building target: SmartWaste.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Faculdade\6_Semestre\PS\repositorio\intelligent_garbage_collecting\Embedded_System\codigo\CMSIS_CORE_LPC17xx\Release" -Xlinker -Map="SmartWaste.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "SmartWaste_Release.ld" -o "SmartWaste.axf"  ./src/ExternalInterrupt.o ./src/GPIO.o ./src/I2C.o ./src/OneWire.o ./src/RTC.o ./src/Sigfox.o ./src/SmartWaste.o ./src/SystemTick.o ./src/TemperatureSensor.o ./src/Timer.o ./src/UltrasonicSensor.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o   -lCMSIS_CORE_LPC17xx
+Memory region         Used Size  Region Size  %age Used
+       MFlash512:        5756 B       512 KB      1.10%
+        RamLoc32:         568 B        32 KB      1.73%
+        RamAHB32:          0 GB        32 KB      0.00%
+Finished building target: SmartWaste.axf
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "SmartWaste.axf"; # arm-none-eabi-objcopy -v -O binary "SmartWaste.axf" "SmartWaste.bin" ; # checksum -p LPC1769 -d "SmartWaste.bin";
+   text	   data	    bss	    dec	    hex	filename
+   5752	      4	    564	   6320	   18b0	SmartWaste.axf
+ 
+16:06:16 **** Incremental Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+make: Nothing to be done for `all'.
+16:06:17 **** Incremental Build of configuration Release for project SmartWaste ****
+make -r -j4 all 
+make: Nothing to be done for `all'.
+16:06:18 **** Incremental Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+make: Nothing to be done for `all'.
+16:06:19 **** Incremental Build of configuration Release for project SmartWaste ****
+make -r -j4 all 
+make: Nothing to be done for `all'.
+16:06:20 **** Incremental Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+make: Nothing to be done for `all'.
+16:06:21 **** Incremental Build of configuration Release for project SmartWaste ****
+make -r -j4 all 
+make: Nothing to be done for `all'.
+16:06:22 **** Incremental Build of configuration Release for project CMSIS_CORE_LPC17xx ****
+make -r all 
+make: Nothing to be done for `all'.
+16:06:22 **** Incremental Build of configuration Release for project SmartWaste ****
+make -r -j4 all 
+make: Nothing to be done for `all'.

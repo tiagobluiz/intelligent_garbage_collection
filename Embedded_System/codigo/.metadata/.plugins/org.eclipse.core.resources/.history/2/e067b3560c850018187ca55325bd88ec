@@ -1,0 +1,45 @@
+/**
+* @file		Sigfox.h
+* @brief	Contains the Sigfox API.
+* @author	Diogo Dias
+*/
+
+#define I2C_SIGFOX_ADDRESS 					0
+
+#define SIGFOX_RECEIVE_FRAME_LENGTH 		8
+#define SIGFOX_TRANSMITE_FRAME_LENGTH 		12
+
+#define PORT_OUTPUT_GET_CONFIGURATION 		18
+#define PORT_INPUT_CONFIGURATION_PENDING 	17
+
+#define DELAY_TIME 							1000					//in miliseconds
+#define WAIT_TIME_FOR_SIGFOX_CONTROLLER		30					//in seconds     tem que ser alterado
+
+#define SIFOX_PARSE_CONTENTOR_LENGTH_0 		0
+#define SIFOX_PARSE_CONTENTOR_LENGTH_1 		1
+#define SIFOX_PARSE_CONTENTOR_LENGTH_2 		2
+#define SIFOX_PARSE_CONTENTOR_LENGTH_3 		3
+#define SIFOX_PARSE_IDLE_TIME 				4
+
+/** 
+ * @brief  Configure and init Sigfox controler
+ * @note   Must be called before any other Sigfox functions
+ * @return None
+ */
+void Sigfox_Init(void);
+
+/** 
+ * @brief  Reads a char buffer from Sigfox controller
+ * @param  buffer: buffer to save the information to read
+ * @param  length: buffer length
+ * @return 
+ */
+int Sigfox_Read(char * buffer, int length);
+
+/** 
+ * @brief  Write a char buffer to the Sigfox controller
+ * @param  buffer: buffer with the information to write
+ * @param  length: buffer length
+ * @return 
+ */
+int Sigfox_Write(char * buffer, int length);

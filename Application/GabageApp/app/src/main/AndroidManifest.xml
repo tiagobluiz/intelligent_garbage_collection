@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ps.isel.ipl.pt.gabageapp">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/wm_logo_v2"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/wm_logo_v2"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapEmployeeWork"
+            android:label="@string/title_activity_map_employee_work"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".manage.ManageSpaceWork"
+            android:label="@string/title_activity_manage_space_work"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AllRoutesActivity"
+            android:label="@string/title_activity_all_route"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CollectZoneActivity"
+            android:label="@string/title_activity_collect_zone"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RouteActivity"
+            android:label="@string/title_activity_route"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AllTrucksActivity"
+            android:label="@string/title_activity_trucks"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RouteCollectZonesActivity"
+            android:label="@string/title_activity_route_collect_zones"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CollectZoneContainerActivity"
+            android:label="@string/title_activity_collect_zone_containers"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RouteContainerActivity"
+            android:label="@string/title_activity_collect_zone_containers"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RouteLandFillsActivity"
+            android:label="@string/title_activity_route_land_fills"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AllStationsActivity"
+            android:label="@string/title_activity_stations"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ContainerActivity"
+            android:label="@string/title_activity_container"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WashesActivity"
+            android:label="@string/title_activity_washes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RouteCollectsActivity"
+            android:label="@string/title_activity_collects"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ContainerCollects"
+            android:label="@string/title_activity_container_collects"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ConfigurationActivity"
+            android:label="@string/title_activity_configuration"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AllConfigurations"
+            android:label="@string/title_activity_all_communications"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".service_web_api.service.HttpRequestService"
+            android:exported="false" />
+
+
+    </application>
+
+</manifest>

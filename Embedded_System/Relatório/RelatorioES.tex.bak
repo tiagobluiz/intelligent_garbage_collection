@@ -1,0 +1,26 @@
+\documentclass[a4paper]{article}
+
+\usepackage{graphicx}
+
+\begin{document}
+\section{Protocolo}
+
+Para que o microcontrolador consiga comunicar com o servidor remoto foi necessário escolher um protocolo de comunicação. Existe muitos protocolos de comunicação criados para sistemas embebidos, tais como, BLE (bluetooth low energy), wifi, sigfox, neul, 3G, 4G, LoRaWAN, etc...
+O protocolo que são mais usados pelo os IoT neste momento são o SigFox e o LoRaWAN devido ao baixo consumo de bateria e a grande área de rede de comunicação (LPWAN – Low Power Wide Area Network).
+
+\section{LoRa}
+
+LoRa é a camada física ou a modulação sem fios que permite criar comunicações a grandes distâncias. Muitos sistemas sem fios, usam frequency shifting keying modulation (FSK) como camada física, isto porque é uma modulação que consome pouca energia. LoRa usa chirp spreak spectrum modulation que mantem a mesma característica de baixo consumo de energia como as modulações FSK, mas tem um aumento no alcance da área de comunicação.
+
+
+\section{LaRaWAN}
+
+LoRaWAN define o protocolo de comunicação e a arquitetura do sistema para rede e usa o LoRa para estabelecer comunicações de longo alcance. É o protocolo e a arquitetura da rede que tem a maior influencia na duração da bateria de um dispositivo, da capacidade da rede, da qualidade do serviço, da segurança e o número de aplicações diferentes servidas pela rede.
+
+\section{Arquitetura da rede}
+Muitas redes existentes usam uma arquitetura de rede de malha (mesh network), isto é, cada nó comunica com todos os outros nós que estão na mesma rede. Assim aumenta o alcance e o tamanho de nós de uma rede. Mas por oposição, aumenta a complexidade (um nó comunica com vários nós ao mesmo tempo), diminui a capacidade da rede (existe um enorme tráfego entre nós por haver várias ligações) e consome muito mais energia (cada nó terá que receber e enviar informações dos outros nós mesmo que a informação não seja relevante para estes. 
+
+\includegraphics{}
+
+
+\end{document}
